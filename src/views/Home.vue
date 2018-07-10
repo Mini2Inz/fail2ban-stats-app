@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md class="pa-2">
     <v-layout wrap>
-      <v-flex xs12 md6>
+      <v-flex xs12 md6 xl4>
         <v-card height="100%">
           <v-card-title class="headline">
             Liczba blokad według krajów
@@ -14,13 +14,30 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs12 md6>
+      <v-flex xs12 md6 xl4>
         <v-card height="100%">
           <v-card-title class="headline">
             Liczba blokad według więzień
           </v-card-title>
           <v-card-text>
             <pie-chart v-if="jailsData" :data="jailsData" />
+            <div v-else class="text-xs-center">
+              <v-progress-circular indeterminate color="primary" />
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 md6 xl4>
+        <v-card>
+          <v-card-title class="headline">
+            Liczba blokad według dni tygodnia
+          </v-card-title>
+          <v-card-text>
+            <bar-chart
+              v-if="daysData"
+              :labels="daysLabels"
+              :values="daysData"
+            />
             <div v-else class="text-xs-center">
               <v-progress-circular indeterminate color="primary" />
             </div>
@@ -53,30 +70,42 @@
 <script>
 import { mapGetters } from 'vuex';
 import PieChart from '../components/PieChart';
+import BarChart from '../components/BarChart';
 
 export default {
   name: 'Home',
   components: {
-    PieChart
+    PieChart,
+    BarChart
   },
   data: () => ({
     headers: [
       { value: 'host', text: 'Host' },
       { value: 'port', text: 'Port' },
       { value: 'bans', text: 'Blokady' }
+    ],
+    daysLabels: [
+      'niedziela',
+      'poniedziałek',
+      'wtorek',
+      'środa',
+      'czwartek',
+      'piątek'
     ]
   }),
   computed: {
     ...mapGetters({
       countriesData: 'countries/data',
       jailsData:     'jails/data',
-      serversData:   'servers/data'
+      serversData:   'servers/data',
+      daysData:      'days/data'
     })
   },
   created() {
     this.$store.dispatch('countries/fetchData');
     this.$store.dispatch('jails/fetchData');
     this.$store.dispatch('servers/fetchData');
+    this.$store.dispatch('days/fetchData');
   }
 };
 </script>
