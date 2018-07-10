@@ -12,11 +12,19 @@ export default {
     data: { type: Object, required: true }
   },
   computed: {
+    sortedData() {
+      return Object.keys(this.data)
+        .map(key => ({
+          label: key,
+          value: this.data[key]
+        }))
+        .sort((a, b) => b.value - a.value);
+    },
     labels() {
-      return Object.keys(this.data);
+      return this.sortedData.map(v => v.label);
     },
     values() {
-      return Object.values(this.data);
+      return this.sortedData.map(v => v.value);
     }
   },
   mounted() {
