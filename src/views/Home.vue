@@ -1,13 +1,26 @@
 <template>
-  <v-container fluid>
-    <v-layout>
-      <v-flex xs12>
-        <v-card>
+  <v-container fluid grid-list-md>
+    <v-layout wrap>
+      <v-flex xs12 md6>
+        <v-card height="100%">
           <v-card-title class="headline">
             Liczba blokad według krajów
           </v-card-title>
           <v-card-text>
             <pie-chart v-if="countriesData" :data="countriesData" />
+            <div v-else class="text-xs-center">
+              <v-progress-circular indeterminate />
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 md6>
+        <v-card height="100%">
+          <v-card-title class="headline">
+            Liczba blokad według więzień
+          </v-card-title>
+          <v-card-text>
+            <pie-chart v-if="jailsData" :data="jailsData" />
             <div v-else class="text-xs-center">
               <v-progress-circular indeterminate />
             </div>
@@ -29,11 +42,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      countriesData: 'countries/data'
+      countriesData: 'countries/data',
+      jailsData:     'jails/data'
     })
   },
   created() {
     this.$store.dispatch('countries/fetchData');
+    this.$store.dispatch('jails/fetchData');
   }
 };
 </script>

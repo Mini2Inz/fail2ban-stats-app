@@ -9,7 +9,7 @@ export default {
     data(state) {
       if (!state.data) return null;
       return state.data.labels.reduce((map, label, idx) => {
-        map[label[0]] = state.data.default[idx];
+        map[label] = state.data.default[idx][0];
         return map;
       }, {});
     }
@@ -21,7 +21,7 @@ export default {
   },
   actions: {
     async fetchData({ commit }) {
-      const res = await axios.get('/api/chart/data/pie');
+      const res = await axios.get('/api/chart/data/jailsbans');
       commit('setData', res.data);
     }
   }
