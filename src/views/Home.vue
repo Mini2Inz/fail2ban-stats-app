@@ -3,8 +3,11 @@
     <v-layout wrap>
       <v-flex xs12 md6 xl4>
         <v-card height="100%">
-          <v-card-title class="headline">
-            Liczba blokad według krajów
+          <v-card-title>
+            <div>
+              <div class="headline">Kraje</div>
+              <div>Liczba blokad według krajów</div>
+            </div>
           </v-card-title>
           <v-card-text>
             <pie-chart v-if="countriesData" :data="countriesData" />
@@ -16,8 +19,11 @@
       </v-flex>
       <v-flex xs12 md6 xl4>
         <v-card height="100%">
-          <v-card-title class="headline">
-            Liczba blokad według więzień
+          <v-card-title>
+            <div>
+              <div class="headline">Więzienia</div>
+              <div>Liczba blokad według więzień</div>
+            </div>
           </v-card-title>
           <v-card-text>
             <pie-chart v-if="jailsData" :data="jailsData" />
@@ -29,8 +35,11 @@
       </v-flex>
       <v-flex xs12 md6 xl4>
         <v-card>
-          <v-card-title class="headline">
-            Liczba blokad według dni tygodnia
+          <v-card-title>
+            <div>
+              <div class="headline">Dni tygodnia</div>
+              <div>Liczba blokad według dni tygodnia</div>
+            </div>
           </v-card-title>
           <v-card-text>
             <bar-chart
@@ -46,8 +55,11 @@
       </v-flex>
       <v-flex xs12>
         <v-card>
-          <v-card-title class="headline">
-            Serwery
+          <v-card-title>
+            <div>
+              <div class="headline">Serwery</div>
+              <div>Dane z poszczególnych serwerów</div>
+            </div>
           </v-card-title>
           <v-data-table
             :headers="headers"
