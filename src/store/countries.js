@@ -25,4 +25,4 @@ export default {
       commit('setData', res.data);
     }
   }
-}
+};
