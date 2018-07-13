@@ -15,19 +15,27 @@ import 'ammap3/ammap/maps/js/worldLow';
 
 export default {
   name: 'WorldMap',
+  props: {
+    data: { type: Object, required: true }
+  },
+  computed: {
+    areas() {
+      const areas = [];
+      for (const country in this.data)
+        areas.push({ id: country, value: this.data[country] });
+      return areas;
+    }
+  },
   mounted() {
     this.map = AmCharts.makeChart(this.$refs.map, {
       type: 'map',
       projection: 'miller',
       dataProvider: {
         map: 'worldLow',
-        getAreasFromMap: true
+        areas: this.areas
       },
-      areas: [
-
-      ],
       areasSettings: {
-        color: 'rgba(0,0,0,.12)'
+        balloonText: '[[title]]: [[value]]'
       },
       dragMap: false,
       zoomControl: {

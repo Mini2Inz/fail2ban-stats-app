@@ -4,7 +4,7 @@
       <v-flex xs12>
         <v-card>
           <v-card-text>
-            <world-map />
+            <world-map :data="{ PL: 100, RU: 200, CN: 300, }" />
           </v-card-text>
         </v-card>
       </v-flex>
