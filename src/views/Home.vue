@@ -1,6 +1,13 @@
 <template>
   <v-container fluid grid-list-md class="pa-2">
     <v-layout wrap>
+      <v-flex xs12>
+        <v-card>
+          <v-card-text>
+            <world-map />
+          </v-card-text>
+        </v-card>
+      </v-flex>
       <v-flex xs12 md6 xl4>
         <v-card height="100%">
           <v-card-title>
@@ -83,12 +90,14 @@
 import { mapGetters } from 'vuex';
 import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
+import WorldMap from '../components/WorldMap';
 
 export default {
   name: 'Home',
   components: {
     PieChart,
-    BarChart
+    BarChart,
+    WorldMap
   },
   data: () => ({
     headers: [
