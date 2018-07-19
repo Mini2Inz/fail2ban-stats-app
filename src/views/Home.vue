@@ -82,6 +82,17 @@
           </v-data-table>
         </v-card>
       </v-flex>
+      <v-flex xs12>
+        <v-card>
+          <v-card-title>
+            <div>
+              <div class="headline">Agresorzy</div>
+              <div>Agresorzy z największą liczbą blokad</div>
+            </div>
+          </v-card-title>
+          <aggressors-table />
+        </v-card>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -91,13 +102,15 @@ import { mapGetters } from 'vuex';
 import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
 import WorldMap from '../components/WorldMap';
+import AggressorsTable from '../components/AggressorsTable';
 
 export default {
   name: 'Home',
   components: {
     PieChart,
     BarChart,
-    WorldMap
+    WorldMap,
+    AggressorsTable
   },
   data: () => ({
     headers: [

@@ -4,6 +4,7 @@ import countries from './countries';
 import jails from './jails';
 import servers from './servers';
 import days from './days';
+import aggressors from './aggressors';
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
     countries,
     jails,
     servers,
-    days
+    days,
+    aggressors
   },
   state: {
 
