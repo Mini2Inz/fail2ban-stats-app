@@ -9,7 +9,7 @@
       <td>{{ props.item.ip }}</td>
       <td>{{ props.item.country | country }}</td>
       <td>{{ props.item.bans }}</td>
-      <td>{{ props.item.last_banned }}</td>
+      <td>{{ props.item.last_banned | date }}</td>
       <td>{{ props.item.last_bantime }}</td>
     </template>
   </v-data-table>
@@ -18,11 +18,13 @@
 <script>
 import { mapGetters } from 'vuex';
 import country from '../filters/country';
+import date from '../filters/date';
 
 export default {
   name: 'AggressorsTable',
   filters: {
-    country
+    country,
+    date
   },
   data: () => ({
     headers: [
