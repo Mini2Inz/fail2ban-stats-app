@@ -7,7 +7,7 @@
   >
     <template slot="items" slot-scope="props">
       <td>{{ props.item.ip }}</td>
-      <td>{{ props.item.country }}</td>
+      <td>{{ props.item.country | country }}</td>
       <td>{{ props.item.bans }}</td>
       <td>{{ props.item.last_banned }}</td>
       <td>{{ props.item.last_bantime }}</td>
@@ -17,9 +17,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import country from '../filters/country';
 
 export default {
   name: 'AggressorsTable',
+  filters: {
+    country
+  },
   data: () => ({
     headers: [
       { value: 'ip',           text: 'IP'               },
