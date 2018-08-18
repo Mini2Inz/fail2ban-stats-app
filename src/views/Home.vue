@@ -18,9 +18,10 @@
           </v-card-title>
           <v-card-text>
             <pie-chart v-if="countriesData" :data="countriesData" />
-            <div v-else class="text-xs-center">
+            <div v-else-if="countriesPending" class="text-xs-center">
               <v-progress-circular indeterminate color="primary" />
             </div>
+            <no-data-icon v-else />
           </v-card-text>
         </v-card>
       </v-flex>
@@ -34,9 +35,10 @@
           </v-card-title>
           <v-card-text>
             <pie-chart v-if="jailsData" :data="jailsData" />
-            <div v-else class="text-xs-center">
+            <div v-else-if="jailsPending" class="text-xs-center">
               <v-progress-circular indeterminate color="primary" />
             </div>
+            <no-data-icon v-else />
           </v-card-text>
         </v-card>
       </v-flex>
@@ -103,6 +105,7 @@ import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
 import WorldMap from '../components/WorldMap';
 import AggressorsTable from '../components/AggressorsTable';
+import NoDataIcon from '../components/NoDataIcon';
 
 export default {
   name: 'Home',
@@ -110,7 +113,8 @@ export default {
     PieChart,
     BarChart,
     WorldMap,
-    AggressorsTable
+    AggressorsTable,
+    NoDataIcon
   },
   data: () => ({
     headers: [
@@ -129,10 +133,12 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      countriesData: 'countries/data',
-      jailsData:     'jails/data',
-      serversData:   'servers/data',
-      daysData:      'days/data'
+      countriesPending: 'countries/pending',
+      countriesData:    'countries/data',
+      jailsPending:     'jails/pending',
+      jailsData:        'jails/data',
+      serversData:      'servers/data',
+      daysData:         'days/data'
     })
   },
   created() {

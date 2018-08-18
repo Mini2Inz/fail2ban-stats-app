@@ -8,7 +8,7 @@ export default {
   getters: {
     data(state) {
       if (!state.data) return null;
-      return state.data.datasets[0].data;
+      return state.data.default;
     }
   },
   mutations: {
@@ -18,7 +18,7 @@ export default {
   },
   actions: {
     async fetchData({ commit }) {
-      const res = await axios.get('/api/chart/data/bar');
+      const res = await axios.get('/api/jailsbans/week');
       commit('setData', res.data);
     }
   }
