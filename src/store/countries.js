@@ -3,11 +3,15 @@ import axios from 'axios';
 export default {
   namespaced: true,
   state: {
+    period: 'week',
     pending: false,
     data: null,
     error: null
   },
   getters: {
+    period(state) {
+      return state.period;
+    },
     pending(state) {
       return state.pending;
     },
@@ -24,6 +28,9 @@ export default {
     }
   },
   mutations: {
+    setPeriod(state, period) {
+      state.period = period;
+    },
     setPending(state) {
       state.pending = true;
     },
@@ -37,10 +44,15 @@ export default {
     }
   },
   actions: {
-    async fetchData({ commit }) {
+    setPeriod({ commit }, period) {
+      if (!['day', 'week', 'month'].includes(period))
+        throw new Error('Period must be a day, week or month.');
+      commit('setPeriod', period);
+    },
+    async fetchData({ commit, state }) {
       commit('setPending');
       try {
-        const res = await axios.get('/api/country/week');
+        const res = await axios.get(`/api/country/${state.period}/`);
         commit('setData', res.data);
       } catch (err) {
         commit('setError', err);

@@ -15,12 +15,22 @@
               <div class="headline">Kraje</div>
               <div>Liczba blokad według krajów</div>
             </div>
+            <v-spacer />
+            <v-flex xs12 sm6 lg4>
+              <v-select
+                :items="periodOptions"
+                v-model="countriesPeriod"
+                prepend-icon="access_time"
+                hide-details
+                class="mt-0"
+              />
+            </v-flex>
           </v-card-title>
           <v-card-text>
-            <pie-chart v-if="countriesData" :data="countriesData" />
-            <div v-else-if="countriesPending" class="text-xs-center">
+            <div v-if="countriesPending" class="text-xs-center">
               <v-progress-circular indeterminate color="primary" />
             </div>
+            <pie-chart v-else-if="countriesData" :data="countriesData" />
             <no-data-icon v-else />
           </v-card-text>
         </v-card>
@@ -129,7 +139,12 @@ export default {
       'środa',
       'czwartek',
       'piątek'
-    ]
+    ],
+    periodOptions: [
+      { text: 'Ostatni dzień',   value: 'day'   },
+      { text: 'Ostatni tydzień', value: 'week'  },
+      { text: 'Ostatni miesiąc', value: 'month' }
+    ],
   }),
   computed: {
     ...mapGetters({
@@ -139,7 +154,20 @@ export default {
       jailsData:        'jails/data',
       serversData:      'servers/data',
       daysData:         'days/data'
-    })
+    }),
+    countriesPeriod: {
+      get() {
+        return this.$store.getters['countries/period'];
+      },
+      set(period) {
+        this.$store.dispatch('countries/setPeriod', period);
+      }
+    }
+  },
+  watch: {
+    countriesPeriod() {
+      this.$store.dispatch('countries/fetchData');
+    }
   },
   created() {
     this.$store.dispatch('countries/fetchData');
