@@ -18,7 +18,7 @@ export default {
   },
   actions: {
     async fetchData({ commit }) {
-      const res = await axios.get('/api/chart/data/serverList');
+      const res = await axios.get('/api/servers/month');
       commit('setData', res.data);
     }
   }
