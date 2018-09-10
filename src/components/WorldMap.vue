@@ -10,6 +10,7 @@
 import 'ammap3';
 import 'ammap3/ammap/ammap.css';
 import 'ammap3/ammap/maps/js/worldLow';
+import countryNameByCode from '../filters/country';
 
 /* global AmCharts */
 
@@ -20,10 +21,11 @@ export default {
   },
   computed: {
     areas() {
-      const areas = [];
-      for (const country in this.data)
-        areas.push({ id: country, value: this.data[country] });
-      return areas;
+      return Object.keys(this.data).map(countryCode => ({
+        id:    countryCode,
+        title: countryNameByCode(countryCode),
+        value: this.data[countryCode]
+      }));
     }
   },
   mounted() {
