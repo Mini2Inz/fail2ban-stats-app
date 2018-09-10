@@ -71,7 +71,7 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <v-flex xs12 md6 xl4>
+      <!--<v-flex xs12 md6 xl4>
         <v-card>
           <v-card-title>
             <div>
@@ -91,7 +91,7 @@
             <no-data-icon v-else />
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-flex>-->
       <v-flex xs12>
         <v-card>
           <v-card-title>
