@@ -9,7 +9,8 @@ import palette from 'google-palette';
 export default {
   name: 'PieChart',
   props: {
-    data: { type: Object, required: true }
+    data:        { type: Object, required: true },
+    labelFilter: { type: Function, default: v => v }
   },
   computed: {
     sortedData() {
@@ -21,7 +22,7 @@ export default {
         .sort((a, b) => b.value - a.value);
     },
     labels() {
-      return this.sortedData.map(v => v.label);
+      return this.sortedData.map(v => this.labelFilter(v.label));
     },
     values() {
       return this.sortedData.map(v => v.value);

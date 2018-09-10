@@ -34,7 +34,11 @@
             <div v-if="countriesPending" class="text-xs-center">
               <v-progress-circular indeterminate color="primary" />
             </div>
-            <pie-chart v-else-if="countriesData" :data="countriesData" />
+            <pie-chart
+              v-else-if="countriesData"
+              :data="countriesData"
+              :label-filter="countryFilter"
+            />
             <no-data-icon v-else />
           </v-card-text>
         </v-card>
@@ -127,6 +131,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import country from '../filters/country';
 import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
 import WorldMap from '../components/WorldMap';
@@ -187,7 +192,8 @@ export default {
     ...mapActions({
       setCountriesPeriod: 'countries/setPeriod',
       setJailsPeriod:     'jails/setPeriod'
-    })
+    }),
+    countryFilter: country
   },
   created() {
     this.$store.dispatch('countries/fetchData');
