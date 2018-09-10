@@ -73,14 +73,15 @@
             </div>
           </v-card-title>
           <v-card-text>
+            <div v-if="daysPending" class="text-xs-center">
+              <v-progress-circular indeterminate color="primary" />
+            </div>
             <bar-chart
-              v-if="daysData"
+              v-else-if="daysData"
               :labels="daysLabels"
               :values="daysData"
             />
-            <div v-else class="text-xs-center">
-              <v-progress-circular indeterminate color="primary" />
-            </div>
+            <no-data-icon v-else />
           </v-card-text>
         </v-card>
       </v-flex>
@@ -167,6 +168,7 @@ export default {
       jailsPending:     'jails/pending',
       jailsData:        'jails/data',
       serversData:      'servers/data',
+      daysPending:      'days/pending',
       daysData:         'days/data'
     })
   },
