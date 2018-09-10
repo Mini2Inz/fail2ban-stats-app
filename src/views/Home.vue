@@ -4,7 +4,10 @@
       <v-flex xs12>
         <v-card>
           <v-card-text>
-            <world-map :data="{ PL: 100, RU: 200, CN: 300, }" />
+            <div v-if="countriesPending" class="text-xs-center">
+              <v-progress-circular indeterminate color="primary" />
+            </div>
+            <world-map v-else :data="countriesData" />
           </v-card-text>
         </v-card>
       </v-flex>

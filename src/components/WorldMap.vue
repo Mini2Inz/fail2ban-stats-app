@@ -17,11 +17,11 @@ import countryNameByCode from '../filters/country';
 export default {
   name: 'WorldMap',
   props: {
-    data: { type: Object, required: true }
+    data: { type: Object, default: null }
   },
   computed: {
     areas() {
-      return Object.keys(this.data).map(countryCode => ({
+      return Object.keys(this.data || {}).map(countryCode => ({
         id:    countryCode,
         title: countryNameByCode(countryCode),
         value: this.data[countryCode]
