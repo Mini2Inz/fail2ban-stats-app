@@ -19,7 +19,8 @@
             <v-flex xs12 sm6 lg4>
               <v-select
                 :items="periodOptions"
-                v-model="countriesPeriod"
+                :value="countriesPeriod"
+                @change="setCountriesPeriod"
                 prepend-icon="access_time"
                 hide-details
                 class="mt-0"
@@ -42,12 +43,23 @@
               <div class="headline">Więzienia</div>
               <div>Liczba blokad według więzień</div>
             </div>
+            <v-spacer />
+            <v-flex xs12 sm6 lg4>
+              <v-select
+                :items="periodOptions"
+                :value="jailsPeriod"
+                @change="setJailsPeriod"
+                prepend-icon="access_time"
+                hide-details
+                class="mt-0"
+              />
+            </v-flex>
           </v-card-title>
           <v-card-text>
-            <pie-chart v-if="jailsData" :data="jailsData" />
-            <div v-else-if="jailsPending" class="text-xs-center">
+            <div v-if="jailsPending" class="text-xs-center">
               <v-progress-circular indeterminate color="primary" />
             </div>
+            <pie-chart v-else-if="jailsData" :data="jailsData" />
             <no-data-icon v-else />
           </v-card-text>
         </v-card>
@@ -110,7 +122,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
 import WorldMap from '../components/WorldMap';
@@ -148,26 +160,29 @@ export default {
   }),
   computed: {
     ...mapGetters({
+      countriesPeriod:  'countries/period',
       countriesPending: 'countries/pending',
       countriesData:    'countries/data',
+      jailsPeriod:      'jails/period',
       jailsPending:     'jails/pending',
       jailsData:        'jails/data',
       serversData:      'servers/data',
       daysData:         'days/data'
-    }),
-    countriesPeriod: {
-      get() {
-        return this.$store.getters['countries/period'];
-      },
-      set(period) {
-        this.$store.dispatch('countries/setPeriod', period);
-      }
-    }
+    })
   },
   watch: {
     countriesPeriod() {
       this.$store.dispatch('countries/fetchData');
+    },
+    jailsPeriod() {
+      this.$store.dispatch('jails/fetchData');
     }
+  },
+  methods: {
+    ...mapActions({
+      setCountriesPeriod: 'countries/setPeriod',
+      setJailsPeriod:     'jails/setPeriod'
+    })
   },
   created() {
     this.$store.dispatch('countries/fetchData');
