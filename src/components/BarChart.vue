@@ -8,8 +8,9 @@ import Chart from 'chart.js';
 export default {
   name: 'BarChart',
   props: {
-    labels: { type: Array, required: true },
-    values: { type: Array, required: true }
+    labels:      { type: Array, required: true },
+    values:      { type: Array, required: true },
+    beginAtZero: { type: Boolean, default : false }
   },
   mounted() {
     const ctx = this.$refs.canvas.getContext('2d');
@@ -23,7 +24,14 @@ export default {
         }]
       },
       options: {
-        legend: { display: false }
+        legend: { display: false },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: this.beginAtZero
+            }
+          }]
+        }
       }
     });
   }

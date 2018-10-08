@@ -12,12 +12,11 @@ export default {
       return state.pending;
     },
     data(state) {
-      if (!state.data || !state.data.default || !state.data.default.length)
-        return null;
-      return state.data.labels.reduce((map, label, idx) => {
-        map[label[0]] = state.data.default[idx];
-        return map;
-      }, {});
+      if (!state.data) return null;
+      return {
+        labels: [...state.data.labels].reverse(),
+        values: [...state.data.datasets[0].data].reverse()
+      };
     },
     error(state) {
       return state.error;
@@ -40,7 +39,7 @@ export default {
     async fetchData({ commit }) {
       commit('setPending');
       try {
-        const res = await axios.get('/api/jailsbans/week');
+        const res = await axios.get('/api/weeklybans');
         commit('setData', res.data);
       } catch (err) {
         commit('setError', err);

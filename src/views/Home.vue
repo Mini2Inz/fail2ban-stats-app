@@ -71,12 +71,12 @@
           </v-card-text>
         </v-card>
       </v-flex>
-      <!--<v-flex xs12 md6 xl4>
+      <v-flex xs12 md6 xl4>
         <v-card>
           <v-card-title>
             <div>
-              <div class="headline">Dni tygodnia</div>
-              <div>Liczba blokad według dni tygodnia</div>
+              <div class="headline">Ostatni tydzień</div>
+              <div>Liczba blokad według ostatnich dni</div>
             </div>
           </v-card-title>
           <v-card-text>
@@ -85,13 +85,14 @@
             </div>
             <bar-chart
               v-else-if="daysData"
-              :labels="daysLabels"
-              :values="daysData"
+              :labels="daysData.labels"
+              :values="daysData.values"
+              begin-at-zero
             />
             <no-data-icon v-else />
           </v-card-text>
         </v-card>
-      </v-flex>-->
+      </v-flex>
       <v-flex xs12>
         <v-card>
           <v-card-title>
@@ -152,14 +153,6 @@ export default {
       { value: 'host', text: 'Host' },
       { value: 'port', text: 'Port' },
       { value: 'bans', text: 'Blokady' }
-    ],
-    daysLabels: [
-      'niedziela',
-      'poniedziałek',
-      'wtorek',
-      'środa',
-      'czwartek',
-      'piątek'
     ],
     periodOptions: [
       { text: 'Ostatni dzień',   value: 'day'   },
