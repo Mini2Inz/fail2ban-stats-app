@@ -38,6 +38,9 @@ export default {
           data: this.values,
           backgroundColor: palette('mpn65', this.values.length).map(v => '#' + v)
         }]
+      },
+      options: {
+        legend: { display: false }
       }
     });
   }
